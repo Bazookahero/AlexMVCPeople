@@ -1,0 +1,16 @@
+﻿@model City;
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@if (Model != null)
+{
+    <div class="list-group">
+        <button class="list-group-item list-group-item-action active">
+            @Model.CityName
+        </button>
+        @* @Html.ActionLink("Details","PeopleDetails","People", new {id = Model.Id})*@
+
+    </div>
+}

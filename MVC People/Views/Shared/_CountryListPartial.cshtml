@@ -1,0 +1,21 @@
+﻿@model List<Country>
+
+@if (Model != null)
+{
+
+    foreach (Country country in Model)
+    {
+        
+        <div class="list-group">
+            <button class="list-group-item list-group-item-action active">
+                @country.CountryName
+            </button>
+        </div>
+        
+    }
+@*    <h2>Cities in Country:</h2>
+    foreach (City city in Model.CitiesInCountry)
+    {
+        <div>@city.CityName</div>
+    }*@
+}

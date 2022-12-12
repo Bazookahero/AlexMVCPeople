@@ -1,0 +1,12 @@
+﻿@model Person;
+
+
+<dl>
+    <dt>Name</dt>
+    <dd>@Model.FirstName @Model.LastName</dd>
+@*    <dt>Location</dt>
+    <dd>@Model.City.CityName</dd>*@
+    <dt>Age</dt>
+    <dd>@Model.Age</dd>
+</dl>
+@Html.ActionLink("Delete","Delete","People", new {id = Model.Id})

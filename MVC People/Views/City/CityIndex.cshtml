@@ -1,0 +1,47 @@
+﻿@model List<City>
+@{
+    ViewData["Title"] = "CityIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CityIndex</h1>
+
+@if (Model != null)
+{
+    <h3>List of Cities:</h3>
+    foreach (City city in Model)
+    {
+        <h2>City ID @city.Id</h2>
+        <partial name="/Views/Shared/_CityIndexPartial.cshtml" model="city"></partial>
+        @Html.ActionLink("Delete","Delete","City", new {id = city.Id})
+    }
+}
+
+<button onclick="TryCreate()" id="create">Create New City</button>
+<button id="show-list">Get List</button>
+
+<div id="myDiv"></div>
+
+<script>
+    function TryCreate() {
+        $.ajax(
+            {
+                url: '@Url.Action("_NewCityPartial", "City")',
+                success: function (data) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = data;
+                },
+            });
+    }
+</script>
+@*<script>
+    $(document).ready(function () {
+        $("#show-list").click(function () {
+            $.get("@Url.Action("_CityListPartial", "City")", function (data, status) {
+                var a = document.getElementById("myDiv")
+                a.innerHTML = "";
+                a.innerHTML = data;
+            });
+        });
+    });</script>*@

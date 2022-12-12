@@ -1,0 +1,11 @@
+﻿@model MVC_People.Models.ViewModels.CreateCountryViewModel
+
+<h1>Create new country</h1>
+
+<form asp-action="_NewCountryPartial" asp-controller="Country" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h4>Name of Country</h4>
+    <input asp-for="CountryName" type="text" />
+    <span asp-validation-for="CountryName"></span>
+    <button type="submit" value="NewCountry" @*onclick="history.go(-1); return false;"*@>Submit</button>
+</form>

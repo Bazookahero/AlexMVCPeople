@@ -1,0 +1,46 @@
+﻿@model List<Country>
+@{
+    ViewData["Title"] = "CountryIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Countries</h2>
+@if (Model != null)
+{
+    <h3>List of Countries:</h3>
+    foreach (Country country in Model)
+    {
+        <h2>Country ID @country.Id</h2>
+        <partial name="/Views/Shared/_CountryIndexPartial.cshtml" model="country"></partial>
+        @Html.ActionLink("Delete","Delete","Country", new {id = country.Id})
+    }
+}
+
+<button onclick="TryCreate()" id="create">Create New Country</button>
+<button id="show-list">Get List</button>
+
+<div id="myDiv"></div>
+
+
+<script>
+    function TryCreate() {
+        $.ajax(
+            {
+                url: '@Url.Action("_NewCountryPartial", "Country")',
+                success: function (data) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = data;
+                },
+            });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#show-list").click(function () {
+            $.get("@Url.Action("_CountryListPartial", "Country")", function (data, status) {
+                var a = document.getElementById("myDiv")
+                a.innerHTML = "";
+                a.innerHTML = data;
+            });
+        });
+    });</script>

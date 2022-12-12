@@ -1,0 +1,110 @@
+﻿@model List<Person>
+@{
+    ViewData["Title"] = "PeopleIndexAJAX";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>PeopleIndexAJAX</h1>
+<p>Type a keyword to search for or an id for the person you wish to Delete or get Details of</p>
+<button onclick="TryCreate()" id="create">Create New Person</button>
+
+
+
+
+
+
+
+<input type="text" id="input-id"name="input-id" /> 
+
+<button onclick="TryPost()" id="search">Search</button>
+<button onclick="TryDelete()"id="delete">Delete</button>
+<button onclick="TryDetails()">Details</button>
+<button onclick="TryUpdate()">Update</button>
+<button id="show-list">Get List</button>
+
+
+
+
+
+
+
+<div id="myDiv"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@*<script src="http://api.jquery.com/val/"></script>*@
+    <script>
+        $(document).ready(function () {
+            $("#show-list").click(function () {
+            $.get("@Url.Action("_PeopleListPartial", "People")", function (data, status) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = (data);
+                });
+            });
+    });</script>
+
+<script>
+    function TryPost() {
+        inputId = document.getElementById("input-id").value;
+        var link = '@Url.Action("_PeopleSearchPartial", "People", new { id = "-1" })';
+        link = link.replace("-1", inputId);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = data;
+        });
+        
+    }
+</script>
+<script>
+    function TryDelete() {
+        inputId = document.getElementById("input-id").value;
+        var link = '@Url.Action("Delete", "People", new { id = "-1" })';
+        link = link.replace("-1", inputId);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = status;
+        });
+
+    }
+</script>
+<script>
+    function TryDetails() {
+        inputId = document.getElementById("input-id").value;
+        var link = '@Url.Action("_PeopleDetailsAjax", "Ajax", new { id = "-1" })';
+        link = link.replace("-1", inputId);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = data;
+        });
+    }
+</script>
+
+<script>
+    function TryCreate() {
+        $.ajax(
+            {
+                url: '@Url.Action("_NewPersonPartial", "Ajax")',
+                success: function (data) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = data;
+                },
+            });
+    }
+</script>
+<script>
+    function TryUpdate() {
+        inputId = document.getElementById("input-id").value;
+        var link = '@Url.Action("_UpdatePartial", "Ajax", new { id = "-1" })';
+        link = link.replace("-1", inputId);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = data;
+        });
+
+    }
+</script>

@@ -1,0 +1,15 @@
+﻿@model Language;
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@if (Model != null)
+{
+    <div class="list-group">
+        <button class="list-group-item list-group-item-action active">
+            @Model.LanguageName
+        </button>
+        
+    </div>
+}

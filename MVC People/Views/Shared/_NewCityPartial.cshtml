@@ -1,0 +1,24 @@
+﻿@model MVC_People.Models.ViewModels.CreateCityViewModel
+
+<h1>Create new city</h1>
+
+<form asp-action="_NewCityPartial" asp-controller="City" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h4>Name of City</h4>
+    <input asp-for="CityName" type="text" />
+    <span asp-validation-for="CityName"></span>
+    <div class="form-group">
+        <label asp-for="CityCountryName" class="control-label"></label>
+        <input asp-for="CityCountryName" type="text" list="CountryList" class="form-control" />
+        <span asp-validation-for="CityCountryName" class="text-danger"></span>
+        <datalist id="CountryList">
+            @foreach (string countryName in Model.CountryList)
+            {
+                <option value="@countryName">@countryName</option>
+            }
+        </datalist>
+    </div>
+
+
+    <button type="submit" value="NewCity" @*onclick="history.go(-1); return false;"*@>Submit</button>
+</form>

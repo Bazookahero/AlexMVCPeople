@@ -1,0 +1,46 @@
+﻿@model List<Language>
+@{
+    ViewData["Title"] = "LanguageIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>LanguageIndex</h1>
+
+<button onclick="TryCreate()" id="create">Create New Language</button>
+<button onclick="TryAssign()" id="assign">Assign Language</button>
+@foreach (Language language in Model)
+{
+    <h4>@language.LanguageName</h4>
+}
+
+<div id="myDiv"></div>
+
+@*<h3>Assigned:</h3>
+<div>@ViewBag.People @ViewBag.Languages</div>*@
+
+<script>
+    function TryCreate() {
+        $.ajax(
+            {
+                url: '@Url.Action("_NewLanguagePartial", "Language")',
+                success: function (data) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = data;
+                },
+            });
+    }
+</script>
+<script>
+    function TryAssign() {
+        $.ajax(
+            {
+                url: '@Url.Action("_AssignLanguagePartial", "Language")',
+                success: function (data) {
+                    var a = document.getElementById("myDiv")
+                    a.innerHTML = "";
+                    a.innerHTML = data;
+                },
+            });
+    }
+</script>

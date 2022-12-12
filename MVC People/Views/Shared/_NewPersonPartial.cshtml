@@ -1,0 +1,59 @@
+﻿@model MVC_People.Models.People.ViewModels.CreatePersonViewModel
+
+<h1>Create new person</h1>
+
+<form asp-action="_NewPersonPartial" asp-controller="Ajax" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h4>First name</h4>
+        <input asp-for="FirstName" type="text" />
+        <span asp-validation-for="FirstName"></span>
+        <h4>Last name</h4>
+        <input asp-for="LastName" type="text" />
+        <span asp-validation-for="LastName"></span>
+        <h4>Age</h4>
+        <input asp-for="Age" type="number" />
+        <span asp-validation-for="Age"></span>
+    <h4>Phone Number</h4>
+    <input asp-for="PhoneNumber" type="text" />
+    <span asp-validation-for="PhoneNumber"></span>
+    <div class="form-group">
+        <label asp-for="CityName" class="control-label"></label>
+        <input asp-for="CityName" type="text" list="CityList" class="form-control" />
+        <span asp-validation-for="CityName" class="text-danger"></span>
+        <datalist id="CityList">
+            @foreach (string CityName in Model.CityList)
+            {
+                <option value="@CityName">@CityName</option>
+            }
+        </datalist>
+    </div>
+@*    <h4>City id</h4>
+    <input asp-for="LocationId" type="number" />
+    <span asp-validation-for="LocationId"></span>*@
+@*    <h4>City Name</h4>
+    <input asp-for="CityName" type="text" />
+    <span asp-validation-for="CityName"></span>*@
+@*    <h4>Language</h4>
+    <input asp-for="LanguageName" type="text" />
+    <span asp-validation-for="LanguageName"></span>
+    <h4>Language Id</h4>
+    <input asp-for="LanguageNameId" type="number" />
+    <span asp-validation-for="LanguageNameId"></span>*@
+@*    <div class="form-group">
+        <h4>Language</h4>
+        <label asp-for="PersonLanguages" class="control-label"></label>
+        <input asp-for="PersonLanguages" list="LanguageList" class="form-control" />
+        <span asp-validation-for="PersonLanguages" class="text-danger"></span>
+        <datalist id="LanguageList">
+            @foreach (Language language in Model.LanguageList)
+            {
+                <option value="@language.LanguageName.ToString()">@language.LanguageName.ToString()</option>
+            }
+        </datalist>
+    </div>*@
+    @*<h4>Location</h4>
+    <input asp-for="Location" type="text" />
+    <span asp-validation-for="Location"></span>*@
+        <button type="submit" value="_NewPersonPartial" @*onclick="history.go(-1); return false;"*@>Submit</button>
+    </form>
+

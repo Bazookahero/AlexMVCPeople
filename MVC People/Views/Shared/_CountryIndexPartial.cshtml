@@ -1,0 +1,12 @@
+﻿@model Country;
+
+@if (Model != null)
+{
+    <div class="list-group">
+        <button class="list-group-item list-group-item-action active">
+            @Model.CountryName
+        </button>
+       @* @Html.ActionLink("Details","PeopleDetails","People", new {id = Model.Id})*@
+
+    </div>
+}

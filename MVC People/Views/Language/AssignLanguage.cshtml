@@ -1,0 +1,28 @@
+﻿@model MVC_People.Models.ViewModels.LanguagePersonViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AssignLanguage</h1>
+<div class="form-group">
+    <label asp-for="Name" class="control-label"></label>
+    <input asp-for="Name" type="text" list="People" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <datalist id="People">
+        @foreach (string Name in Model.People)
+        {
+            <option value="@Name">@Name</option>
+        }
+    </datalist>
+</div>
+<div class="form-group">
+    <label asp-for="Language" class="control-label"></label>
+    <input asp-for="Language" type="text" list="Languages" class="form-control" />
+    <span asp-validation-for="Language" class="text-danger"></span>
+    <datalist id="Languages">
+        @foreach (string Language in Model.Languages)
+        {
+            <option value="@Language">@Language</option>
+        }
+    </datalist>
+</div>

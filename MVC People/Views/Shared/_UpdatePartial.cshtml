@@ -1,0 +1,47 @@
+﻿@model Person;
+
+
+<dl>
+    <dt>Name</dt>
+    <dd>@Model.FirstName @Model.LastName</dd>
+    <dt>City of birth</dt>
+@*    <dd>@Model.CityOfBirth</dd>*@
+    <dt>Lives in</dt>
+@*    <dd>@Model.LivesIn</dd>*@
+    <dt>Age</dt>
+    <dd>@Model.Age</dd>
+</dl>
+
+<form asp-action="Update" asp-controller="Ajax" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h4>First name</h4>
+    <input asp-for="FirstName" type="text" />
+    <span asp-validation-for="FirstName"></span>
+    <h4>Last name</h4>
+    <input asp-for="LastName" type="text" />
+    <span asp-validation-for="LastName"></span>
+    <h4>City of birth</h4>
+@*    <input asp-for="CityOfBirth" type="text" />
+    <span asp-validation-for="CityOfBirth"></span>*@
+    <h4>Lives in</h4>
+@*    <input asp-for="LivesIn" type="text" />
+    <span asp-validation-for="LivesIn"></span>*@
+    <h4>Age</h4>
+    <input asp-for="Age" type="number" />
+    <span asp-validation-for="Age"></span>
+    <button type="submit" value="person" onclick="TryUpdateAgain()">Submit</button>
+</form>@*@Html.ActionLink("Update","Update","Ajax", new {id = Model.Id})*@
+
+<script>
+    function TryUpdateAgain() {
+        inputId = @Model.Id
+        var link = '@Url.Action("Update", "Ajax", new { id = "-1" })';
+        link = link.replace("-1", inputId);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = status;
+        });
+
+    }
+</script>

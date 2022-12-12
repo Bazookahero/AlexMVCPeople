@@ -1,0 +1,20 @@
+﻿@model List<Person>
+
+@if (Model != null)
+{
+
+    foreach (Person p in Model)
+    {
+        <h2>ID @p.Id:</h2>
+        <div class="list-group">
+            <button class="list-group-item list-group-item-action active">
+                    @p.FirstName
+                    @p.LastName
+                    @*@p.LivesIn*@
+            </button>
+            @Html.ActionLink("Details","PeopleDetails","People", new {id = p.Id}) @*@Html.ActionLink("Delete","Delete","People", new {id = p.Id})*@
+
+        </div>
+        @*<partial name="/Views/Shared/_PeopleIndexPartial.cshtml" model="p"></partial>*@
+    }
+}
