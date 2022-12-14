@@ -4,6 +4,8 @@ using MVC_People.Models.Repo;
 using MVC_People.Models.Service;
 using MVC_People.Models.People.PeopleRepo;
 using MVC_People.Models.People.PeopleService;
+using MVC_People.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace MVC_People
 {
@@ -11,6 +13,7 @@ namespace MVC_People
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<PeopleDbContext>(options =>
@@ -26,9 +29,19 @@ namespace MVC_People
             builder.Services.AddScoped<ILanguageService, LanguageService>();
             builder.Services.AddScoped<ILanguageRepo, DbLanguageRepo>();
 
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<PeopleDbContext>()
+                .AddDefaultTokenProviders();
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+            });
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
 
             var app = builder.Build();
 
@@ -45,13 +58,35 @@ namespace MVC_People
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.Run();
+            
+        }
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<PeopleDbContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while creating the DB.");
+                }
+            }
         }
     }
 }

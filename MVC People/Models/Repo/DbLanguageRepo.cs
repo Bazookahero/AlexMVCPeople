@@ -20,10 +20,10 @@ namespace MVC_People.Models.Repo
         {
             return _peopleDbContext.Languages.ToList();
         }
-        public List<LanguagePeople> ReadLangPeople()
-        {
-            return _peopleDbContext.LanguagePeople.ToList();
-        }
+        //public List<LanguagePeople> ReadLangPeople()
+        //{
+        //    return _peopleDbContext.LanguagePeople.ToList();
+        //}
         public Language SearchLanguage(string languageName)
         {
             return _peopleDbContext.Languages.FirstOrDefault(l => l.LanguageName == languageName);
@@ -42,7 +42,7 @@ namespace MVC_People.Models.Repo
         }
         public LanguagePeople CreateLangPeople(LanguagePeople languagePeople)
         {
-            _peopleDbContext.LanguagePeople.Add(languagePeople);
+            //_peopleDbContext.LanguagePeople.Add(languagePeople);
             _peopleDbContext.SaveChanges();
             return languagePeople;
         }

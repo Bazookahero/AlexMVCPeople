@@ -38,10 +38,10 @@ namespace MVC_People.Models.Service
         {
             return _languageRepo.ReadPeople;
         }
-        public List<LanguagePeople> AllLangPeople()
-        {
-            return _languageRepo.ReadLangPeople();
-        }
+        //public List<LanguagePeople> AllLangPeople()
+        //{
+        //    return _languageRepo.ReadLangPeople();
+        //}
         public bool Remove(int id)
         {
 
@@ -66,11 +66,11 @@ namespace MVC_People.Models.Service
             else
                 return 1;
         }
-        public LanguagePeople AddLangPeople(LanguagePeople languagePeople)
-        {
-                return _languageRepo.CreateLangPeople(languagePeople);
+        //public LanguagePeople AddLangPeople(LanguagePeople languagePeople)
+        //{
+        //        return _languageRepo.CreateLangPeople(languagePeople);
             
-        }
+        //}
         public Person FindPersonById(int id)
         {
             var personList = _languageRepo.ReadPeople;
