@@ -12,7 +12,7 @@ namespace MVC_People.Models.ViewModels
         [DataType(DataType.DateTime)]
         public DateTime? BirthDate { get; set; }
         [Required]
-        [StringLength(10, MinimumLength = 2)]
+        [StringLength(20, MinimumLength = 2)]
         public string? UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
