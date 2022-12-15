@@ -11,6 +11,7 @@
     <Compile Remove="Data\CityDbContext.cs" />
     <Compile Remove="Data\CountryDbContext.cs" />
     <Compile Remove="Data\LanguageDbContext.cs" />
+    <Compile Remove="Models\AppRoles.cs" />
     <Compile Remove="Models\LanguagePerson.cs" />
   </ItemGroup>
 

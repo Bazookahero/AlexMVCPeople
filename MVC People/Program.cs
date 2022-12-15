@@ -36,8 +36,11 @@ namespace MVC_People
                 .AddDefaultTokenProviders();
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = true;
+                options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredUniqueChars = 0;
             });
 
 
@@ -60,7 +63,12 @@ namespace MVC_People
 
             app.UseRouting();
 
-            
+            //builder.Services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Cookie.HttpOnly = true;
+            //    options.LoginPath = "/Account/Login";
+            //});
+            CreateDbIfNotExists(app);
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -81,8 +89,9 @@ namespace MVC_People
                 var services = scope.ServiceProvider;
                 try
                 {
+                    UserManager<AppUser> userManager = services.GetService<UserManager<AppUser>>();
                     var context = services.GetRequiredService<PeopleDbContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializer.Initialize(context, userManager);
                 }
                 catch (Exception ex)
                 {

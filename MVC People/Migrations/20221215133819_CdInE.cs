@@ -4,7 +4,7 @@
 
 namespace MVC_People.Migrations
 {
-    public partial class RegisterForm : Migration
+    public partial class CdInE : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

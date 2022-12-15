@@ -51,7 +51,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
-                            <div>@User.Identity.Name</div>
+                            <li>Logged in as:@User.Identity.Name, @User.IsInRole("Admin")</li>
                         }
                         else {
                             <li class="nav-item">

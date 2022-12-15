@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_People.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20221214082137_andAppUser")]
-    partial class andAppUser
+    [Migration("20221215130001_AppUserReDo")]
+    partial class AppUserReDo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,9 +180,6 @@ namespace MVC_People.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("BirthDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -193,12 +190,6 @@ namespace MVC_People.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -298,20 +289,6 @@ namespace MVC_People.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("MVC_People.Models.LanguagePeople", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeopleId")
-                        .HasColumnType("int");
-
-                    b.ToTable("LanguagePeople");
                 });
 
             modelBuilder.Entity("MVC_People.Models.Person", b =>

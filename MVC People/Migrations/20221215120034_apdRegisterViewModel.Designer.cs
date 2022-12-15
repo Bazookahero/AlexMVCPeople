@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_People.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20221214085956_AddIdentity")]
-    partial class AddIdentity
+    [Migration("20221215120034_apdRegisterViewModel")]
+    partial class apdRegisterViewModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -298,20 +298,6 @@ namespace MVC_People.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("MVC_People.Models.LanguagePeople", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeopleId")
-                        .HasColumnType("int");
-
-                    b.ToTable("LanguagePeople");
                 });
 
             modelBuilder.Entity("MVC_People.Models.Person", b =>

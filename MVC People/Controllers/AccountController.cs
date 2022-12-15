@@ -10,10 +10,12 @@ namespace MVC_People.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<AppUser> _userManager;
-        public AccountController(UserManager<AppUser> userManager)
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -23,26 +25,42 @@ namespace MVC_People.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async void Register(RegisterViewModel newRegister)
+        [AllowAnonymous]
+        public async Task Register(RegisterViewModel newRegister)
         {
-            AppUser user = new AppUser { UserName = newRegister.UserName };
-            IdentityResult result = await _userManager.CreateAsync(user, newRegister.Password);
-            RedirectToAction("Login");
+            AppUser user = new AppUser { UserName = newRegister.UserName, PasswordHash = newRegister.Password };
+            IdentityResult result = await _userManager.CreateAsync(user, user.PasswordHash);
+            //IdentityResult roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            if (result.Succeeded)
+                Console.WriteLine(result.ToString());
+            else { Console.WriteLine(result.Errors.ToString()); }
+            RedirectToAction(nameof(Login));
         }
         [HttpGet]
+        [AutoValidateAntiforgeryToken]
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
         }
         [HttpPost]
-        public async void Login(LoginViewModel userLogin, SignInManager<AppUser> signInManager = default)
+        [AutoValidateAntiforgeryToken]
+        [AllowAnonymous]
+        public async Task Login(LoginViewModel userLogin)
         {
-            SignInResult signIn = await signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, false);
+            SignInResult signIn = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, false);
+            if (signIn.Succeeded) {
+                Console.WriteLine(signIn.Succeeded.ToString());
+                RedirectToAction(nameof(Login));
+            }
+            else
+                Console.WriteLine("Login failed");
+            RedirectToAction(nameof(Login));
         }
-        public async void Logout(SignInManager<AppUser> signInManager)
+        public async Task Logout()
         {
-            await signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
+            RedirectToAction("Index", "Home");
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_People.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20221214130216_RegisterForm")]
-    partial class RegisterForm
+    [Migration("20221215110632_apd2IC")]
+    partial class apd2IC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
