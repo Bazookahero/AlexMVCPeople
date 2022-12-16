@@ -14,8 +14,7 @@ namespace MVC_People.Models.People.PeopleRepo
         }
         public List<Person> Read()
         {
-
-            return _peopleDbContext.People.Include(c => c.Languages).ToList();
+            return _peopleDbContext.People.Include(c => c.Languages).Include(l => l.Location).ToList();
         }
         public Person SearchForPerson(string personName)
         {

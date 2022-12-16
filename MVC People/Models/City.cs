@@ -25,6 +25,6 @@ namespace MVC_People.Models
 
 
 
-        public virtual ICollection<Person>? Person { get; set; }
+        public List<Person>? Person { get; set; }
     }
 }

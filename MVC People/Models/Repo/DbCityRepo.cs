@@ -1,4 +1,5 @@
-﻿using MVC_People.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC_People.Data;
 using MVC_People.Models.People.PeopleRepo;
 
 namespace MVC_People.Models.Repo
@@ -13,7 +14,6 @@ namespace MVC_People.Models.Repo
         }
         public City Create(City city)
         {
-            inMemoryCityList.Add(city);
             _peopleDbContext.Cities.Add(city);
             _peopleDbContext.SaveChanges();
             return city;

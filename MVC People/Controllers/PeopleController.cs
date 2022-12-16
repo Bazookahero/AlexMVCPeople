@@ -6,7 +6,9 @@ using MVC_People.Models.People;
 using MVC_People.Models.People.PeopleRepo;
 using MVC_People.Models.People.PeopleService;
 using MVC_People.Models.People.ViewModels;
+using MVC_People.Models.Repo;
 using MVC_People.Models.Service;
+using MVC_People.Models.ViewModels;
 using System;
 using System.Xml.Linq;
 
@@ -15,10 +17,13 @@ namespace MVC_People.Controllers
     public class PeopleController : Controller
     {
         IPeopleService _peopleService;
-        
-        public PeopleController(IPeopleService peopleService)
+        ICityService _cityService;
+        PeopleDbContext _context;
+        public PeopleController(IPeopleService peopleService, ICityService cityService, PeopleDbContext context)
         {
             _peopleService = peopleService;
+            _cityService = cityService;
+            _context = context;
         }
         [HttpGet]
         public IActionResult PeopleIndex()
@@ -149,6 +154,35 @@ namespace MVC_People.Controllers
         {
             var searchResult = _peopleService.Search(search);
             return View(searchResult);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            EditPersonViewModel viewModel = new EditPersonViewModel();
+            
+            Person editPerson = _peopleService.FindById(id);
+            List<string> cityList = new List<string>();
+            foreach (City city in _cityService.All())
+            {
+                viewModel.CityList.Add(city.CityName);
+            }
+            viewModel.Age = editPerson.Age;
+            viewModel.FirstName = editPerson.FirstName;
+            viewModel.LastName = editPerson.LastName;
+            viewModel.PhoneNumber = editPerson.PhoneNumber;
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, EditPersonViewModel editPerson)
+        {
+            Person editedPerson = _peopleService.FindById(id);
+            editedPerson.FirstName = editPerson.FirstName;
+            editedPerson.LastName = editPerson.LastName;
+            editedPerson.PhoneNumber = editPerson.PhoneNumber;
+            editedPerson.Age = editPerson.Age;
+            editedPerson.Location = _cityService.All().FirstOrDefault(c => c.CityName == editPerson.CityName);
+            _context.SaveChanges();
+            return RedirectToAction("PeopleIndexAJAX", "Ajax");
         }
     }
 }

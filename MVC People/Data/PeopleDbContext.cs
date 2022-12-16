@@ -13,6 +13,8 @@ namespace MVC_People.Data
         {
             base.OnModelCreating(modelBuilder);
         }
+
+
         public DbSet<Person>? People { get; set; }
         public DbSet<City>? Cities { get; set; }
         public DbSet<Country>? Countries { get; set; }

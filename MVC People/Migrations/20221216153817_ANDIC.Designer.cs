@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_People.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    [Migration("20221216111439_ANDIC")]
+    [Migration("20221216153817_ANDIC")]
     partial class ANDIC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

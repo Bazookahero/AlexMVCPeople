@@ -34,7 +34,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("PeopleId");
 
-                    b.ToTable("LanguagePerson", (string)null);
+                    b.ToTable("LanguagePerson");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -263,7 +263,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("CityCountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("MVC_People.Models.Country", b =>
@@ -279,7 +279,7 @@ namespace MVC_People.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("MVC_People.Models.Language", b =>
@@ -295,7 +295,7 @@ namespace MVC_People.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("MVC_People.Models.Person", b =>
@@ -326,7 +326,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("People");
                 });
 
             modelBuilder.Entity("LanguagePerson", b =>

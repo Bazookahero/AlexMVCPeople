@@ -29,8 +29,8 @@ namespace MVC_People
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();
             builder.Services.AddScoped<ILanguageRepo, DbLanguageRepo>();
-            builder.Services.AddTransient<UserManager<AppUser>>();
-            builder.Services.AddTransient<PeopleDbContext>();
+            //builder.Services.AddTransient<UserManager<AppUser>>();
+            //builder.Services.AddTransient<PeopleDbContext>();
 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<PeopleDbContext>()

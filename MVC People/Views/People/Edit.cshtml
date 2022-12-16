@@ -1,0 +1,29 @@
+﻿@model EditPersonViewModel
+
+<form asp-action="Edit" asp-controller="People" method="Post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <h4>First name</h4>
+    <input asp-for="FirstName" type="text" />
+    <span asp-validation-for="FirstName"></span>
+    <h4>Last name</h4>
+    <input asp-for="LastName" type="text" />
+    <span asp-validation-for="LastName"></span>
+    <h4>Age</h4>
+    <input asp-for="Age" type="number" />
+    <span asp-validation-for="Age"></span>
+    <h4>Phone Number</h4>
+    <input asp-for="PhoneNumber" type="text" />
+    <span asp-validation-for="PhoneNumber"></span>
+    <div class="form-group">
+        <label asp-for="CityName" class="control-label"></label>
+        <input asp-for="CityName" type="text" list="CityList" class="form-control" />
+        <span asp-validation-for="CityName" class="text-danger"></span>
+        <datalist id="CityList">
+            @foreach (string CityName in Model.CityList)
+            {
+                <option value="@CityName">@CityName</option>
+            }
+        </datalist>
+    </div>
+    <button type="submit" value="Edit" @*onclick="history.go(-1); return false;"*@>Submit</button>
+</form>
