@@ -92,9 +92,10 @@ namespace MVC_People.Controllers
                 if(languagePerson.Name == personP.FirstName + ' '+ personP.LastName)
                 {
                     personP.Languages.Add(_languageRepo.SearchLanguage(languagePerson.Language));
+                    _languageRepo.SaveChanges();
                 }
             }
-            _languageRepo.SaveChanges();
+            
             
             return RedirectToAction(nameof(AssignedLanguages));
 
@@ -104,7 +105,7 @@ namespace MVC_People.Controllers
             List<Person> personList = new List<Person>();
             foreach (Person person in _peopleService.All())
             {
-                if (person.Languages.Count >= 0)
+                if (person.Languages.Count > 0)
                 {
                     personList.Add(person);
                 }

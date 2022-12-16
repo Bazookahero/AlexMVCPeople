@@ -75,11 +75,10 @@ namespace MVC_People.Models.People.PeopleService
                 if (id == p.Id)
                 {
                     p.FirstName = person.FirstName;
-                    //p.CityOfBirth = person.CityOfBirth;
                     p.Age = person.Age;
                     p.LastName = person.LastName;
-                    p.Location = person.Location;
-                    //p.LivesIn = person.LivesIn;
+                    p.Location = _peopleRepo.SearchCity(person.CityName);
+                    p.PhoneNumber = person.PhoneNumber;
                     return true;
                 }
             return false;

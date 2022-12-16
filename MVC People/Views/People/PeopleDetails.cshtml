@@ -10,9 +10,28 @@
         <dt>Name</dt>
         <dd>@Model.FirstName @Model.LastName</dd>
         <dt>Location</dt>
-        <dd>@Model.Location</dd>
+        <dd>@Model.Location.CityName</dd>
         <dt>Age</dt>
         <dd>@Model.Age</dd>
+        <dt>Languages</dt>
+        @foreach(Language lang in Model.Languages){
+            <dd>@lang.LanguageName</dd>
+        }
         </dl>
+<a asp-controller="People" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+@*<button onclick="TryEdit()" id="edit">Edit</button>*@
 <a href='javascript:history.go(-1)'>Return</a>
+<div id="myDiv"></div>
+@*<script>
+    function TryEdit() {
+        var link = '@Url.Action("Edit", "People", new { id = "-1" })';
+        link = link.replace("-1", @Model.Id);
+        $.post(link, function (data, status) {
+            var a = document.getElementById("myDiv")
+            a.innerHTML = "";
+            a.innerHTML = data;
+        });
+
+    }
+</script>*@
     

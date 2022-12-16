@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using MVC_People.Data;
 using MVC_People.Models.People.PeopleRepo;
 using MVC_People.Models.Repo;
 using MVC_People.Models.ViewModels;
@@ -11,10 +13,12 @@ namespace MVC_People.Models.Service
     {
         ICityRepo _cityRepo;
         ICountryRepo _countryRepo;
-        public CityService(ICityRepo cityRepo, ICountryRepo countryRepo)
+        private readonly PeopleDbContext _peopleDbContext;
+        public CityService(ICityRepo cityRepo, ICountryRepo countryRepo, PeopleDbContext peopleDbContext)
         {
             _cityRepo = cityRepo;
             _countryRepo = countryRepo;
+            _peopleDbContext = peopleDbContext;
         }
         public City Add(CreateCityViewModel city)
         {
@@ -26,6 +30,7 @@ namespace MVC_People.Models.Service
             City newCity = new City();
             newCity.CityName = city.CityName;
             newCity.CityCountry = _countryRepo.SearchCountry(city.CityCountryName);
+            
             return _cityRepo.Create(newCity);
         }
         public List<City> All()
