@@ -1,0 +1,35 @@
+﻿@model EditRolesViewModel
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h1>Roles</h1>
+
+<form asp-action="Roles" asp-controller="Admin" method="post">
+<div class="form-group">
+    <label asp-for="UserName" class="control-label"></label>
+    <input asp-for="UserName" type="text" list="Users" class="form-control" />
+    <span asp-validation-for="UserName" class="text-danger"></span>
+    <datalist id="Users">
+        @foreach (AppUser user in Model.Users)
+        {
+            <option value="@user.UserName">@user.UserName</option>
+        }
+    </datalist>
+</div>
+    <div class="form-group">
+        <label asp-for="RoleName" class="control-label"></label>
+        <input asp-for="RoleName" type="text" list="Roles" class="form-control" />
+        <span asp-validation-for="RoleName" class="text-danger"></span>
+        <datalist id="Roles">
+            @foreach (IdentityRole role in Model.Roles)
+            {
+                <option value="@role.Name">@role.Name</option>
+            }
+        </datalist>
+    </div>
+<button type="submit" value="editRole">Submit</button>
+</form>
+@foreach(AppUser user in Model.Users){
+    <div>@user.UserName @*@user.Role.Name*@</div>
+}

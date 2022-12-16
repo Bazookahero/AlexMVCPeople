@@ -6,12 +6,13 @@ using MVC_People.Models.People.PeopleRepo;
 using MVC_People.Models.People.PeopleService;
 using MVC_People.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 
 namespace MVC_People
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             var builder = WebApplication.CreateBuilder(args);
@@ -68,9 +69,17 @@ namespace MVC_People
             //    options.Cookie.HttpOnly = true;
             //    options.LoginPath = "/Account/Login";
             //});
-            CreateDbIfNotExists(app);
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                UserManager<AppUser> userManager = services.GetService<UserManager<AppUser>>();
+                var context = services.GetRequiredService<PeopleDbContext>();
+                await DbInitializer.Initialize(context, userManager);
+            }
 
             app.UseEndpoints(endpoints =>
             {
@@ -81,24 +90,6 @@ namespace MVC_People
 
             app.Run();
             
-        }
-        private static void CreateDbIfNotExists(IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    UserManager<AppUser> userManager = services.GetService<UserManager<AppUser>>();
-                    var context = services.GetRequiredService<PeopleDbContext>();
-                    DbInitializer.Initialize(context, userManager);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while creating the DB.");
-                }
-            }
         }
     }
 }

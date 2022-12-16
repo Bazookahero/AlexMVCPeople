@@ -10,8 +10,7 @@ namespace MVC_People.Models
     {
         internal static async Task Initialize(PeopleDbContext context, UserManager<AppUser> userManager)
         {
-            //var context = serviceProvider.GetService<PeopleDbContext>();
-            context.Database.Migrate();
+            
             string[] roles = new string[] { "Member", "Moderator", "Administrator" };
 
             foreach (string role in roles)
@@ -19,17 +18,28 @@ namespace MVC_People.Models
                 var roleStore = new RoleStore<IdentityRole>(context);
                 if (!context.Roles.Any(r => r.Name == role))
                 {
-                    roleStore.CreateAsync(new IdentityRole(role));
+                    await roleStore.CreateAsync(new IdentityRole() { Name = role, NormalizedName = role.ToUpper()});
                 }
             }
-            foreach (var user in context.Users)
+            if (userManager.FindByNameAsync("admin").Result == null)
             {
-                if(user.UserName == "Bazookahero")
+                var user = new AppUser
                 {
-                    AppUser appUser = await userManager.FindByNameAsync("Bazookahero");
-                    var result = await userManager.AddToRolesAsync(appUser, roles);
+                    UserName = "admin",
+                    NormalizedUserName = "ADMIN",
+                    PasswordHash = "Admin123"
+                };
+                var result = await userManager.CreateAsync(user, user.PasswordHash);
+                if (result.Succeeded)
+                {
+                    var adminUser = await userManager.FindByNameAsync("admin");
+                   await userManager.AddToRoleAsync(adminUser, "Administrator");
+                   await context.SaveChangesAsync();
                 }
+                else { Console.WriteLine("--------FAILED TO ADD ADMIN"); }
+
             }
+            context.Database.Migrate();
         }
     }
 }

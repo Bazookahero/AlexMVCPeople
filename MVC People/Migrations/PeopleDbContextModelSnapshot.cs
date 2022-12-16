@@ -34,7 +34,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("PeopleId");
 
-                    b.ToTable("LanguagePerson");
+                    b.ToTable("LanguagePerson", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -178,6 +178,9 @@ namespace MVC_People.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -188,6 +191,12 @@ namespace MVC_People.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -254,7 +263,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("CityCountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("MVC_People.Models.Country", b =>
@@ -270,7 +279,7 @@ namespace MVC_People.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("MVC_People.Models.Language", b =>
@@ -286,7 +295,7 @@ namespace MVC_People.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("MVC_People.Models.Person", b =>
@@ -317,7 +326,7 @@ namespace MVC_People.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("LanguagePerson", b =>

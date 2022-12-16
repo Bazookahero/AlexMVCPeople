@@ -7,7 +7,7 @@
 
 <form asp-action="Register" asp-controller="Account" method="post">
     <div asp-validation-summary="ModelOnly"></div>
-@*    <h4>First name</h4>
+    <h4>First name</h4>
     <input asp-for="FirstName" type="text" />
     <span asp-validation-for="FirstName"></span>
     <h4>Last name</h4>
@@ -15,15 +15,15 @@
     <span asp-validation-for="LastName"></span>
     <h4>Date of Birth</h4>
     <input asp-for="BirthDate" type="date" />
-    <span asp-validation-for="BirthDate"></span>*@
+    <span asp-validation-for="BirthDate"></span>
     <h4>Username</h4>
     <input asp-for="UserName" type="text" />
     <span asp-validation-for="UserName"></span>
     <h4>Password</h4>
     <input asp-for="Password" type="password" />
     <span asp-validation-for="Password"></span>
-@*    <h4>Confirm password</h4>
+    <h4>Confirm password</h4>
     <input asp-for="ConfirmPassword" type="password" />
-    <span asp-validation-for="ConfirmPassword"></span>*@
+    <span asp-validation-for="ConfirmPassword"></span>
     <button type="submit" value="NewRegister">Submit</button>
     </form>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVC_People.Migrations
 {
-    public partial class apd2IC : Migration
+    public partial class ANDIC : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

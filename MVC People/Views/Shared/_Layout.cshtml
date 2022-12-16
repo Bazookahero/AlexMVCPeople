@@ -34,7 +34,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Language" asp-action="AssignedLanguages">Assigned Languages</a>
                         </li>
                         }
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="City" asp-action="CityIndex">City</a>
@@ -51,7 +51,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
-                            <li>Logged in as:@User.Identity.Name, @User.IsInRole("Admin")</li>
+                            <li>Logged in as:@User.Identity.Name, Is admin: @User.IsInRole("Administrator")</li>
                         }
                         else {
                             <li class="nav-item">
