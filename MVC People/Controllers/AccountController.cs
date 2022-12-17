@@ -30,7 +30,7 @@ namespace MVC_People.Controllers
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         [AllowAnonymous]
-        public async Task Register(RegisterViewModel newRegister)
+        public async Task<ActionResult> Register(RegisterViewModel newRegister)
         {
             if (newRegister.Password == newRegister.ConfirmPassword)
             {
@@ -49,7 +49,7 @@ namespace MVC_People.Controllers
                 else { Console.WriteLine(result.Errors.ToString()); }
             }
             else { throw new Exception("Passwords must match"); }
-            RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(Login));
         }
         [HttpGet]
         [AutoValidateAntiforgeryToken]
@@ -61,24 +61,25 @@ namespace MVC_People.Controllers
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         [AllowAnonymous]
-        public async Task Login(LoginViewModel userLogin)
+        public async Task<ActionResult> Login(LoginViewModel userLogin)
         {
             SignInResult signIn = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, false);
             if (signIn.Succeeded)
             {
                 Console.WriteLine(signIn.Succeeded.ToString());
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
                 Console.WriteLine("Login failed");
-                RedirectToAction(nameof(Login));
+                return RedirectToAction(nameof(Login));
             }
+            
         }
-        public async Task Logout()
+        public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
