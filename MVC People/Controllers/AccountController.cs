@@ -41,7 +41,6 @@ namespace MVC_People.Controllers
                     FirstName = newRegister.FirstName,
                     LastName = newRegister.LastName,
                     BirthDate = newRegister.BirthDate,
-                    //Role = await _roleManager.FindByNameAsync("Member")
                 };
                 IdentityResult result = await _userManager.CreateAsync(user, user.PasswordHash);
                 IdentityResult roleResult = await _userManager.AddToRoleAsync(user, "Member");
