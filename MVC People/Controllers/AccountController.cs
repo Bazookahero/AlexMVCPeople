@@ -32,7 +32,7 @@ namespace MVC_People.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel newRegister)
         {
-            if (newRegister.Password == newRegister.ConfirmPassword)
+            if (newRegister.Password == newRegister.ConfirmPassword && ModelState.IsValid)
             {
                 AppUser user = new AppUser
                 {
