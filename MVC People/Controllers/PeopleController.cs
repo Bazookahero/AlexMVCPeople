@@ -175,14 +175,19 @@ namespace MVC_People.Controllers
         [HttpPost]
         public IActionResult Edit(int id, EditPersonViewModel editPerson)
         {
-            Person editedPerson = _peopleService.FindById(id);
-            editedPerson.FirstName = editPerson.FirstName;
-            editedPerson.LastName = editPerson.LastName;
-            editedPerson.PhoneNumber = editPerson.PhoneNumber;
-            editedPerson.Age = editPerson.Age;
-            editedPerson.Location = _cityService.All().FirstOrDefault(c => c.CityName == editPerson.CityName);
-            _context.SaveChanges();
-            return RedirectToAction("PeopleIndexAJAX", "Ajax");
+            if (ModelState.IsValid)
+            {
+                Person editedPerson = _peopleService.FindById(id);
+                editedPerson.FirstName = editPerson.FirstName;
+                editedPerson.LastName = editPerson.LastName;
+                editedPerson.PhoneNumber = editPerson.PhoneNumber;
+                editedPerson.Age = editPerson.Age;
+                editedPerson.Location = _cityService.All().FirstOrDefault(c => c.CityName == editPerson.CityName);
+                _context.SaveChanges();
+                return RedirectToAction("PeopleIndexAJAX", "Ajax");
+            }
+            else
+                return View(editPerson);
         }
     }
 }
