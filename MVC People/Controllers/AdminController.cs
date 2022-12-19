@@ -29,11 +29,11 @@ namespace MVC_People.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task Roles(EditRolesViewModel editRole)
+        public async Task<ActionResult> Roles(EditRolesViewModel editRole)
         {
             var user = await _userManager.FindByNameAsync(editRole.UserName);
             var result = await _userManager.AddToRoleAsync(user, editRole.RoleName);
-            RedirectToAction(nameof(Roles));
+            return RedirectToAction(nameof(Roles));
         }
     }
 }
